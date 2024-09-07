@@ -1,3 +1,4 @@
+import 'package:catatbarang/barang.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -69,14 +70,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,17 +89,86 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.large(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).drawerTheme.backgroundColor,
+              ),
+              child: const Row(children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/img/avatar_co100.png'),
+                    radius: 40.0,
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Jufry Ananta',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text('jufry.joep@gmail.com',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 14, fontStyle: FontStyle.italic))
+                  ],
+                )
+              ]),
+            ),
+            ListTile(
+              title: const Text('Barang'),
+              leading: const Icon(Icons.store),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BarangPage()));
+              },
+            ),
+            ListTile(
+              title: const Text('Sales'),
+              leading: const Icon(Icons.people_alt),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Hutang'),
+              leading: const Icon(Icons.shopping_cart),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Catatan'),
+              leading: const Icon(Icons.description),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            const Divider(
+              thickness: 2.0,
+            ),
+            ListTile(
+              title: const Text('Tentang'),
+              leading: const Icon(Icons.help),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
